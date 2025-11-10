@@ -10,8 +10,24 @@ import { TursoQueryInterface } from './query-interface.js';
 import { TursoQuery } from './query.js';
 
 export interface TursoDialectOptions {
+  /**
+   * Enable or disable foreign key constraints.
+   * Default: true (enabled)
+   */
   foreignKeys?: boolean;
 
+  /**
+   * Custom Turso database module.
+   * Use this to provide @libsql/client for full embedded replica support.
+   * Default: @tursodatabase/database (basic support)
+   * 
+   * @example
+   * import * as LibSQL from '@libsql/client';
+   * const sequelize = new Sequelize({
+   *   dialect: TursoDialect,
+   *   dialectOptions: { tursoModule: LibSQL }
+   * });
+   */
   tursoModule?: TursoModule;
 }
 
@@ -26,6 +42,11 @@ const CONNECTION_OPTION_NAMES = getSynchronizedTypeKeys<TursoConnectionOptions>(
   mode: undefined,
   url: undefined,
   authToken: undefined,
+  syncUrl: undefined,
+  syncInterval: undefined,
+  encryptionKey: undefined,
+  readonly: undefined,
+  enableWal: undefined,
 });
 
 export class TursoDialect extends AbstractDialect<TursoDialectOptions, TursoConnectionOptions> {
@@ -63,11 +84,12 @@ export class TursoDialect extends AbstractDialect<TursoDialectOptions, TursoConn
       DECIMAL: false,
       BIGINT: false,
       JSON: true,
+      JSONB: true,
     },
-    jsonOperations: false,
+    jsonOperations: true,
     jsonExtraction: {
-      unquoted: false,
-      quoted: false,
+      unquoted: true,
+      quoted: true,
     },
     truncate: {
       restartIdentity: false,

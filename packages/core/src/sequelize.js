@@ -498,8 +498,8 @@ Use Sequelize#query if you wish to use replacements.`);
    * @private
    */
   async _syncModelsWithCyclicReferences(options) {
-    if (this.dialect.name === 'sqlite3') {
-      // Optimisation: no need to do this in two passes in SQLite because we can temporarily disable foreign keys
+    if (this.dialect.name === 'sqlite3' || this.dialect.name === 'turso') {
+      // Optimisation: no need to do this in two passes in SQLite/Turso because we can temporarily disable foreign keys
       await withSqliteForeignKeysOff(this, options, async () => {
         for (const model of this.models) {
           await model.sync(options);

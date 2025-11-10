@@ -30,15 +30,70 @@ export interface TursoStatement {
 }
 
 export interface TursoConnectionOptions {
+  /**
+   * Path to the local database file.
+   * Use ':memory:' for in-memory database.
+   * For embedded replicas, this is the local replica file path.
+   */
   storage?: string;
 
+  /**
+   * SQLite open mode flags (not commonly used with Turso)
+   */
   mode?: number;
 
+  /**
+   * Password for encrypted local databases (uses PRAGMA KEY)
+   */
   password?: string;
 
+  /**
+   * Remote Turso database URL (libsql://...).
+   * When provided, connects to a remote Turso database.
+   * Requires authToken.
+   */
   url?: string;
 
+  /**
+   * Authentication token for remote Turso database.
+   * Required when using url option.
+   * Get this from your Turso dashboard.
+   */
   authToken?: string;
+
+  /**
+   * Remote database URL for embedded replicas.
+   * When provided with storage, creates an embedded replica that syncs with remote.
+   * Note: Requires @libsql/client package for full embedded replica support.
+   */
+  syncUrl?: string;
+
+  /**
+   * Automatic sync interval in seconds for embedded replicas.
+   * When set, the local replica will automatically sync with remote at this interval.
+   * Note: Requires @libsql/client package for embedded replica support.
+   */
+  syncInterval?: number;
+
+  /**
+   * Encryption key for database encryption at rest.
+   * Provides additional security for local database files.
+   * Note: Requires @libsql/client package for encryption support.
+   */
+  encryptionKey?: string;
+
+  /**
+   * Open database in readonly mode.
+   * Prevents any write operations to the database.
+   */
+  readonly?: boolean;
+
+  /**
+   * Enable Write-Ahead Logging (WAL) mode for better concurrency.
+   * Default: true (enabled by default for local databases)
+   * WAL mode allows concurrent readers while a write is in progress.
+   */
+  enableWal?: boolean;
 }
 
 export class TursoConnectionManager extends AbstractConnectionManager<
@@ -110,10 +165,10 @@ To fix this, disable read replication, or use a non-temporary database.`);
     }
 
     try {
-      console.log(`[TURSO DEBUG] Connecting to storage: ${storage}`);
+      debug(`Connecting to storage: ${storage}`);
       const connection = await this.#lib.connect(storage);
 
-      console.log(`[TURSO DEBUG] turso connection acquired`);
+      debug(`turso connection acquired`);
 
       const tursoConnection = connection as unknown as TursoConnection;
       tursoConnection.filename = storage;
@@ -137,6 +192,16 @@ To fix this, disable read replication, or use a non-temporary database.`);
         } catch (err) {
           debug(`PRAGMA foreign_keys = ON failed: ${(err as Error).message}`);
           throw err;
+        }
+      }
+
+      if (options.enableWal !== false && !isRemote) {
+        debug(`Enabling WAL mode for better concurrency`);
+        try {
+          await tursoConnection.exec('PRAGMA journal_mode = WAL');
+          debug(`WAL mode enabled successfully`);
+        } catch (err) {
+          debug(`WAL mode enable failed: ${(err as Error).message}`);
         }
       }
 

@@ -173,7 +173,6 @@ export class TursoQuery extends AbstractQuery {
         parameters = [];
       }
 
-      console.log('DEBUG_PARAMETERS_BEFORE', parameters);
       if (isPlainObject(parameters)) {
         const newParameters = Object.create(null);
 
@@ -183,7 +182,6 @@ export class TursoQuery extends AbstractQuery {
         }
 
         parameters = newParameters;
-        console.log('DEBUG_PARAMETERS_AFTER', parameters);
       } else {
         parameters = parameters.map(stringifyIfBigint);
       }
@@ -209,7 +207,6 @@ export class TursoQuery extends AbstractQuery {
   }
 
   async #allSeries(connection, query, parameters) {
-    debug(`Preparing query: ${query}`);
     const stmt = connection.prepare(query);
 
     try {

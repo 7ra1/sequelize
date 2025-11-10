@@ -20,7 +20,7 @@ node_modules
 /.nx
 
 lib
-
+tasks
 .pnp.*
 .yarn/*
 !.yarn/patches
