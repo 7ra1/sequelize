@@ -11,4 +11,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 7.0.0-alpha.48 (2025-11-10)
 
-**Note:** Version bump only for package @sequelize/turso
+**Note:** Version bump only for package @nxtmd/turso

@@ -55,5 +55,6 @@
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
     "mocha": "11.7.5"
-  }
+  },
+  "gitHead": "9aab4099fa09b61b3cbcb832a6832b74817fe0c3"
 }

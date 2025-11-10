@@ -3,6 +3,7 @@
 The Sequelize Turso dialect provides full support for Turso databases, including local, remote, and embedded replica configurations.
 
 ## Table of Contents
+
 - [Connection Types](#connection-types)
 - [Configuration Options](#configuration-options)
 - [Advanced Features](#advanced-features)
@@ -14,7 +15,7 @@ The Sequelize Turso dialect provides full support for Turso databases, including
 
 ```javascript
 const { Sequelize } = require('@sequelize/core');
-const { TursoDialect } = require('@sequelize/turso');
+const { TursoDialect } = require('@nxtmd/turso');
 
 const sequelize = new Sequelize({
   dialect: TursoDialect,
@@ -60,19 +61,19 @@ npm install @libsql/client
 
 ```javascript
 import { Sequelize } from '@sequelize/core';
-import { TursoDialect } from '@sequelize/turso';
+import { TursoDialect } from '@nxtmd/turso';
 import * as LibSQL from '@libsql/client';
 
 const sequelize = new Sequelize({
   dialect: TursoDialect,
   dialectOptions: {
-    tursoModule: LibSQL,  // Use @libsql/client for embedded replicas
+    tursoModule: LibSQL, // Use @libsql/client for embedded replicas
   },
-  storage: './local-replica.db',        // Local database file
-  syncUrl: 'libsql://db.turso.io',      // Remote database to sync with
-  authToken: 'your-auth-token',         // Authentication
-  syncInterval: 60,                      // Auto-sync every 60 seconds
-  encryptionKey: 'your-encryption-key',  // Optional: encryption at rest
+  storage: './local-replica.db', // Local database file
+  syncUrl: 'libsql://db.turso.io', // Remote database to sync with
+  authToken: 'your-auth-token', // Authentication
+  syncInterval: 60, // Auto-sync every 60 seconds
+  encryptionKey: 'your-encryption-key', // Optional: encryption at rest
 });
 ```
 
@@ -80,24 +81,24 @@ const sequelize = new Sequelize({
 
 ### Connection Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `storage` | string | Path to local database file or `:memory:` for in-memory |
-| `url` | string | Remote Turso database URL (libsql://...) |
-| `authToken` | string | Authentication token for remote database (required with `url`) |
-| `syncUrl` | string | Remote URL for embedded replicas (requires @libsql/client) |
-| `syncInterval` | number | Auto-sync interval in seconds (requires @libsql/client) |
-| `encryptionKey` | string | Encryption key for database at rest (requires @libsql/client) |
-| `password` | string | Password for encrypted local databases (PRAGMA KEY) |
-| `readonly` | boolean | Open database in readonly mode |
-| `enableWal` | boolean | Enable WAL mode for better concurrency (default: true) |
+| Option          | Type    | Description                                                    |
+| --------------- | ------- | -------------------------------------------------------------- |
+| `storage`       | string  | Path to local database file or `:memory:` for in-memory        |
+| `url`           | string  | Remote Turso database URL (libsql://...)                       |
+| `authToken`     | string  | Authentication token for remote database (required with `url`) |
+| `syncUrl`       | string  | Remote URL for embedded replicas (requires @libsql/client)     |
+| `syncInterval`  | number  | Auto-sync interval in seconds (requires @libsql/client)        |
+| `encryptionKey` | string  | Encryption key for database at rest (requires @libsql/client)  |
+| `password`      | string  | Password for encrypted local databases (PRAGMA KEY)            |
+| `readonly`      | boolean | Open database in readonly mode                                 |
+| `enableWal`     | boolean | Enable WAL mode for better concurrency (default: true)         |
 
 ### Dialect Options
 
-| Option | Type | Description |
-|--------|------|-------------|
-| `foreignKeys` | boolean | Enable/disable foreign key constraints (default: true) |
-| `tursoModule` | object | Custom Turso module (use @libsql/client for embedded replicas) |
+| Option        | Type    | Description                                                    |
+| ------------- | ------- | -------------------------------------------------------------- |
+| `foreignKeys` | boolean | Enable/disable foreign key constraints (default: true)         |
+| `tursoModule` | object  | Custom Turso module (use @libsql/client for embedded replicas) |
 
 ## Advanced Features
 
@@ -109,11 +110,12 @@ WAL mode is enabled by default for better concurrency:
 const sequelize = new Sequelize({
   dialect: TursoDialect,
   storage: './my-database.db',
-  enableWal: true,  // Default: true
+  enableWal: true, // Default: true
 });
 ```
 
 **Benefits:**
+
 - Concurrent readers while a write is in progress
 - Better performance for high-concurrency workloads
 - Reduced lock contention
@@ -131,14 +133,14 @@ const User = sequelize.define('User', {
 // Create with JSON
 await User.create({
   name: 'John',
-  metadata: { age: 30, city: 'NYC' }
+  metadata: { age: 30, city: 'NYC' },
 });
 
 // Query JSON fields
 const users = await User.findAll({
   where: {
-    'metadata.age': { [Op.gt]: 25 }
-  }
+    'metadata.age': { [Op.gt]: 25 },
+  },
 });
 ```
 
@@ -191,7 +193,7 @@ const sequelize = new Sequelize({
   storage: './local-replica.db',
   syncUrl: 'libsql://db.turso.io',
   authToken: process.env.TURSO_AUTH_TOKEN,
-  syncInterval: 60,  // Sync every minute
+  syncInterval: 60, // Sync every minute
 });
 ```
 
@@ -209,12 +211,13 @@ const sequelize = new Sequelize({
 ### 3. Use Connection Pooling Wisely
 
 For local databases:
+
 ```javascript
 const sequelize = new Sequelize({
   dialect: TursoDialect,
   storage: './my-database.db',
   pool: {
-    max: 5,  // Multiple connections for better concurrency with WAL
+    max: 5, // Multiple connections for better concurrency with WAL
     min: 1,
     idle: 10000,
   },
@@ -222,12 +225,13 @@ const sequelize = new Sequelize({
 ```
 
 For in-memory databases:
+
 ```javascript
 const sequelize = new Sequelize({
   dialect: TursoDialect,
   storage: ':memory:',
   pool: {
-    max: 1,  // MUST be 1 to prevent separate in-memory databases
+    max: 1, // MUST be 1 to prevent separate in-memory databases
     idle: Infinity,
     maxUses: Infinity,
     idleTimeoutMillis: Infinity,
@@ -243,11 +247,12 @@ const sequelize = new Sequelize({
   url: 'libsql://db.turso.io',
   authToken: process.env.TURSO_AUTH_TOKEN,
   retry: {
-    max: 3,  // Retry failed connections
+    max: 3, // Retry failed connections
   },
 });
 
-sequelize.authenticate()
+sequelize
+  .authenticate()
   .then(() => console.log('Connected to Turso'))
   .catch(err => console.error('Connection failed:', err));
 ```
@@ -265,16 +270,16 @@ const sequelize = new Sequelize({
 
 ## Feature Comparison
 
-| Feature | @tursodatabase/database | @libsql/client |
-|---------|------------------------|----------------|
-| Local databases | ✅ | ✅ |
-| Remote databases | ✅ | ✅ |
-| Embedded replicas | ❌ | ✅ |
-| Auto-sync | ❌ | ✅ |
-| Encryption at rest | ❌ | ✅ |
-| Offline writes | ❌ | ✅ |
-| WAL mode | ✅ | ✅ |
-| JSON support | ✅ | ✅ |
+| Feature            | @tursodatabase/database | @libsql/client |
+| ------------------ | ----------------------- | -------------- |
+| Local databases    | ✅                      | ✅             |
+| Remote databases   | ✅                      | ✅             |
+| Embedded replicas  | ❌                      | ✅             |
+| Auto-sync          | ❌                      | ✅             |
+| Encryption at rest | ❌                      | ✅             |
+| Offline writes     | ❌                      | ✅             |
+| WAL mode           | ✅                      | ✅             |
+| JSON support       | ✅                      | ✅             |
 
 ## Migration from SQLite3
 

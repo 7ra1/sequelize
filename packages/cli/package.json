@@ -75,5 +75,6 @@
   "version": "7.0.0-alpha.52",
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "9aab4099fa09b61b3cbcb832a6832b74817fe0c3"
 }

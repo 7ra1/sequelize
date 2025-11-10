@@ -39,12 +39,12 @@ export function importDialect(dialect: string): typeof AbstractDialect {
     case 'turso': {
       try {
         // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
-        return require('@sequelize/turso').TursoDialect;
+        return require('@nxtmd/turso').TursoDialect;
       } catch (error) {
         const missingModule = (error as NodeJS.ErrnoException)?.code === 'MODULE_NOT_FOUND';
-        if (missingModule && (error as Error).message.includes('@sequelize/turso')) {
+        if (missingModule && (error as Error).message.includes('@nxtmd/turso')) {
           throw new Error(
-            'The Turso dialect requires the "@sequelize/turso" package. Install it with your package manager before setting dialect to "turso".',
+            'The Turso dialect requires the "@nxtmd/turso" package. Install it with your package manager before setting dialect to "turso".',
           );
         }
 

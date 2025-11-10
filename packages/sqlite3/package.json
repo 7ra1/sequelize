@@ -40,5 +40,6 @@
     "@sequelize/utils": "^7.0.0-alpha.47",
     "lodash": "^4.17.21",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "gitHead": "9aab4099fa09b61b3cbcb832a6832b74817fe0c3"
 }

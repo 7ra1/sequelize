@@ -167,5 +167,6 @@
     "----------------------------------------- development ---------------------------------------------": "",
     "build": "node ../../build-packages.mjs core"
   },
-  "support": true
+  "support": true,
+  "gitHead": "9aab4099fa09b61b3cbcb832a6832b74817fe0c3"
 }

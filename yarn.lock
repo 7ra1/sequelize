@@ -2725,6 +2725,56 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@nxtmd/sequelize@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@nxtmd/sequelize@workspace:."
+  dependencies:
+    "@ephys/eslint-config-typescript": "npm:20.1.4"
+    "@rushstack/eslint-patch": "npm:1.14.1"
+    "@sequelize/utils": "npm:^7.0.0-alpha.47"
+    "@types/chai": "npm:4.3.20"
+    "@types/lodash": "npm:4.17.20"
+    "@types/mocha": "npm:10.0.10"
+    "@types/node": "npm:22.19.0"
+    chai: "npm:4.5.0"
+    concurrently: "npm:9.2.1"
+    cross-env: "npm:10.1.0"
+    esbuild: "npm:0.25.12"
+    eslint: "npm:8.57.1"
+    eslint-plugin-jsdoc: "npm:61.1.12"
+    eslint-plugin-mocha: "npm:10.5.0"
+    fast-glob: "npm:3.3.3"
+    husky: "npm:9.1.7"
+    lerna: "npm:8.2.4"
+    lint-staged: "npm:16.2.6"
+    lodash: "npm:4.17.21"
+    markdownlint-cli: "npm:0.45.0"
+    mocha: "npm:11.7.5"
+    node-gyp: "npm:11.5.0"
+    node-hook: "npm:1.0.0"
+    nx: "npm:21.6.8"
+    prettier: "npm:3.5.3"
+    prettier-plugin-organize-imports: "npm:4.3.0"
+    source-map-support: "npm:0.5.21"
+    ts-node: "npm:10.9.2"
+    typedoc: "npm:0.27.9"
+    typedoc-plugin-mdn-links: "npm:5.0.10"
+    typedoc-plugin-missing-exports: "npm:3.1.0"
+    typescript: "npm:5.8.3"
+  languageName: unknown
+  linkType: soft
+
+"@nxtmd/turso@workspace:packages/turso":
+  version: 0.0.0-use.local
+  resolution: "@nxtmd/turso@workspace:packages/turso"
+  dependencies:
+    "@sequelize/core": "npm:^7.0.0-alpha.47"
+    "@sequelize/utils": "npm:^7.0.0-alpha.47"
+    "@tursodatabase/database": "npm:^0.4.0-pre.1"
+    lodash: "npm:^4.17.21"
+  languageName: unknown
+  linkType: soft
+
 "@oclif/core@npm:^4, @oclif/core@npm:^4.8.0":
   version: 4.8.0
   resolution: "@oclif/core@npm:4.8.0"
@@ -3074,45 +3124,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sequelize/monorepo@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@sequelize/monorepo@workspace:."
-  dependencies:
-    "@ephys/eslint-config-typescript": "npm:20.1.4"
-    "@rushstack/eslint-patch": "npm:1.14.1"
-    "@sequelize/utils": "npm:^7.0.0-alpha.47"
-    "@types/chai": "npm:4.3.20"
-    "@types/lodash": "npm:4.17.20"
-    "@types/mocha": "npm:10.0.10"
-    "@types/node": "npm:22.19.0"
-    chai: "npm:4.5.0"
-    concurrently: "npm:9.2.1"
-    cross-env: "npm:10.1.0"
-    esbuild: "npm:0.25.12"
-    eslint: "npm:8.57.1"
-    eslint-plugin-jsdoc: "npm:61.1.12"
-    eslint-plugin-mocha: "npm:10.5.0"
-    fast-glob: "npm:3.3.3"
-    husky: "npm:9.1.7"
-    lerna: "npm:8.2.4"
-    lint-staged: "npm:16.2.6"
-    lodash: "npm:4.17.21"
-    markdownlint-cli: "npm:0.45.0"
-    mocha: "npm:11.7.5"
-    node-gyp: "npm:11.5.0"
-    node-hook: "npm:1.0.0"
-    nx: "npm:21.6.8"
-    prettier: "npm:3.5.3"
-    prettier-plugin-organize-imports: "npm:4.3.0"
-    source-map-support: "npm:0.5.21"
-    ts-node: "npm:10.9.2"
-    typedoc: "npm:0.27.9"
-    typedoc-plugin-mdn-links: "npm:5.0.10"
-    typedoc-plugin-missing-exports: "npm:3.1.0"
-    typescript: "npm:5.8.3"
-  languageName: unknown
-  linkType: soft
-
 "@sequelize/mssql@workspace:packages/mssql":
   version: 0.0.0-use.local
   resolution: "@sequelize/mssql@workspace:packages/mssql"
@@ -3180,7 +3191,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sequelize/sqlite3@npm:^7.0.0-alpha.47, @sequelize/sqlite3@workspace:packages/sqlite3":
+"@sequelize/sqlite3@npm:^7.0.0-alpha.52, @sequelize/sqlite3@workspace:packages/sqlite3":
   version: 0.0.0-use.local
   resolution: "@sequelize/sqlite3@workspace:packages/sqlite3"
   dependencies:
@@ -3188,17 +3199,6 @@ __metadata:
     "@sequelize/utils": "npm:^7.0.0-alpha.47"
     lodash: "npm:^4.17.21"
     sqlite3: "npm:^5.1.7"
-  languageName: unknown
-  linkType: soft
-
-"@sequelize/turso@workspace:packages/turso":
-  version: 0.0.0-use.local
-  resolution: "@sequelize/turso@workspace:packages/turso"
-  dependencies:
-    "@sequelize/core": "npm:^7.0.0-alpha.47"
-    "@sequelize/utils": "npm:^7.0.0-alpha.47"
-    "@tursodatabase/database": "npm:^0.4.0-pre.1"
-    lodash: "npm:^4.17.21"
   languageName: unknown
   linkType: soft
 
@@ -3232,7 +3232,7 @@ __metadata:
   resolution: "@sequelize/validator.js@workspace:packages/validator-js"
   dependencies:
     "@sequelize/core": "npm:^7.0.0-alpha.47"
-    "@sequelize/sqlite3": "npm:^7.0.0-alpha.47"
+    "@sequelize/sqlite3": "npm:^7.0.0-alpha.52"
     "@types/chai": "npm:4.3.20"
     "@types/chai-as-promised": "npm:7.1.8"
     chai: "npm:4.5.0"
