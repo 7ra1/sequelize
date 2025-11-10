@@ -45,11 +45,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@sequelize/core": "workspace:*",
+    "@sequelize/core": "^7.0.0-alpha.47",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@sequelize/sqlite3": "workspace:*",
+    "@sequelize/sqlite3": "^7.0.0-alpha.47",
     "@types/chai": "4.3.20",
     "@types/chai-as-promised": "7.1.8",
     "chai": "4.5.0",

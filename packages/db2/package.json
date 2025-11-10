@@ -36,8 +36,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@sequelize/core": "workspace:*",
-    "@sequelize/utils": "workspace:*",
+    "@sequelize/core": "^7.0.0-alpha.47",
+    "@sequelize/utils": "^7.0.0-alpha.47",
     "@types/ibm_db": "^3.2.0",
     "dayjs": "^1.11.19",
     "ibm_db": "^3.3.1",

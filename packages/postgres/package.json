@@ -37,8 +37,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@sequelize/core": "workspace:*",
-    "@sequelize/utils": "workspace:*",
+    "@sequelize/core": "^7.0.0-alpha.47",
+    "@sequelize/utils": "^7.0.0-alpha.47",
     "@types/pg": "^8.11.14",
     "lodash": "^4.17.21",
     "pg": "^8.15.6",

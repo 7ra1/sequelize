@@ -10,7 +10,7 @@
     "@inquirer/select": "^4.4.1",
     "@oclif/core": "^4.8.0",
     "@oclif/plugin-help": "^6.2.35",
-    "@sequelize/utils": "workspace:*",
+    "@sequelize/utils": "^7.0.0-alpha.47",
     "ansis": "^3.17.0",
     "cosmiconfig": "^9.0.0",
     "zod": "^4.1.12"

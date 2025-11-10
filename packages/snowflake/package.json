@@ -36,8 +36,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@sequelize/core": "workspace:*",
-    "@sequelize/utils": "workspace:*",
+    "@sequelize/core": "^7.0.0-alpha.47",
+    "@sequelize/utils": "^7.0.0-alpha.47",
     "lodash": "^4.17.21",
     "snowflake-sdk": "^2.1.0"
   }
