@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky",
-    "publish-all": "lerna publish --conventional-commits --no-private --yes --create-release github",
+    "publish-all": "lerna publish --conventional-commits --no-private --yes",
     "format": "npm run format:eslint && npm run format:prettier",
     "format:eslint": "eslint . --fix --report-unused-disable-directives",
     "format:prettier": "prettier --write .",
