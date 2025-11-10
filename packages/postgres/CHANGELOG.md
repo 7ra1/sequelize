@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 7.0.0-alpha.48 (2025-11-10)
+
+**Note:** Version bump only for package @sequelize/postgres
+
 # [7.0.0-alpha.47](https://github.com/sequelize/sequelize/compare/v7.0.0-alpha.46...v7.0.0-alpha.47) (2025-10-25)
 
 ### Bug Fixes
