@@ -8,7 +8,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 - rebuild yarn lock ([ad6bc53](https://github.com/sequelize/sequelize/commit/ad6bc53681d2bc404dbc0152b3dd4172bae969cc))
-
-# 7.0.0-alpha.48 (2025-11-10)
-
-**Note:** Version bump only for package @sequelize/turso
