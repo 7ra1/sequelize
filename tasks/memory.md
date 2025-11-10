@@ -115,3 +115,8 @@ The Turso dialect implementation includes:
 - Full CRUD operations support
 - Transaction support with proper isolation levels
 - File-based and in-memory database support
+
+## Core Registration Notes (2025-11-10)
+- `Sequelize.supportedDialects` now returns the synchronized dialect list exposed by `SUPPORTED_DIALECTS`, so downstream consumers can configure `dialect: 'turso'` without manual casting.
+- Turso dialect resolution throws an explicit installation hint when `@sequelize/turso` is missing, avoiding silent fallbacks or obscure MODULE_NOT_FOUND traces.
+- Unit coverage added in `packages/core/test/unit/sequelize.test.ts` to lock in both the supported dialect exposure and the guarded import behavior.

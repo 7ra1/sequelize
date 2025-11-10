@@ -161,6 +161,12 @@ Created `packages/turso/TURSO_FEATURES.md` with:
 - Rebuilt both core and turso packages successfully
 - All source TypeScript files now match compiled JavaScript files
 
+## Turso Dialect Core Registration (2025-11-10)
+- **packages/core/src/sequelize-typescript.ts**: Added static `supportedDialects` exposure so `Sequelize.supportedDialects` reflects all shipped dialects, including Turso.
+- **packages/core/src/sequelize.d.ts**: Declared the static `supportedDialects` type to maintain TypeScript parity.
+- **packages/core/src/sequelize.internals.ts**: Wrapped Turso import in a guarded require that throws an actionable installation hint when `@sequelize/turso` is missing.
+- **packages/core/test/unit/sequelize.test.ts**: Added assertions covering the new `supportedDialects` accessor and the Turso-specific missing-module guidance.
+
 ## Testing Checklist - ✅ COMPLETE
 All tests passing:
 - ✅ Connection to in-memory database (`:memory:`)

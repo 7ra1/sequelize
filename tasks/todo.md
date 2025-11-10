@@ -24,6 +24,32 @@
 # Turso Dialect Implementation - TODO
 
 ## Stage 1: Analysis & Planning ✓ COMPLETED
+
+# Turso Dialect Core Registration - TODO
+
+## Stage 1: Analysis & Planning
+- [ ] Document current dialect registration flow in `@sequelize/core`
+- [ ] Identify missing-module error handling paths for dialect resolution
+- [ ] Enumerate edge cases: missing `@sequelize/turso`, storage-only configurations, in-memory databases
+
+## Stage 2: Implementation & Validation
+- [ ] Add `turso` to supported dialect lists and type definitions
+- [ ] Guard module resolution to throw actionable error when `@sequelize/turso` is absent
+- [ ] Ensure local storage and in-memory configurations bypass remote-only option requirements
+- [ ] Update or add tests covering dialect detection and option handling
+- [ ] Request permission before running validation tests
+- [ ] Execute agreed validation tests and document results
+
+## Stage 3: Documentation & Context Updates
+- [ ] Update `tasks/steps.md` with implementation summary and validations
+- [ ] Update `tasks/memory.md` with new registration details and edge cases
+
+## Stage 4: Final Review & Handoff
+- [ ] Perform security and edge-case audit against Stage 1 analysis
+- [ ] Add review summary to this section
+- [ ] Update `dev.md` with follow-up or refactor notes if required
+- [ ] Prepare final walkthrough tailored to junior developer
+
 - [x] Examine existing Turso dialect implementation
 - [x] Study Turso database capabilities and API
 - [x] Compare with SQLite3 dialect implementation

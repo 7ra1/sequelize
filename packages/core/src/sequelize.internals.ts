@@ -20,33 +20,38 @@ export function importDialect(dialect: string): typeof AbstractDialect {
   // require calls static. (Browserify fix)
   switch (dialect) {
     case 'mariadb':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/mariadb').MariaDbDialect;
     case 'mssql':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/mssql').MsSqlDialect;
     case 'mysql':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/mysql').MySqlDialect;
     case 'postgres':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/postgres').PostgresDialect;
     case 'sqlite':
     case 'sqlite3':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/sqlite3').SqliteDialect;
     case 'ibmi':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/db2-ibmi').IBMiDialect;
     case 'db2':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/db2').Db2Dialect;
     case 'snowflake':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
       return require('@sequelize/snowflake').SnowflakeDialect;
-    case 'turso':
-      // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
-      return require('@sequelize/turso').TursoDialect;
+    case 'turso': {
+      try {
+        // eslint-disable-next-line import/no-extraneous-dependencies -- legacy function, will be removed. User needs to install the dependency themselves
+        return require('@sequelize/turso').TursoDialect;
+      } catch (error) {
+        const missingModule = (error as NodeJS.ErrnoException)?.code === 'MODULE_NOT_FOUND';
+        if (missingModule && (error as Error).message.includes('@sequelize/turso')) {
+          throw new Error(
+            'The Turso dialect requires the "@sequelize/turso" package. Install it with your package manager before setting dialect to "turso".',
+          );
+        }
+
+        throw error;
+      }
+    }
+
     default:
       throw new Error(
         `The dialect ${dialect} is not natively supported. Native dialects: mariadb, mssql, mysql, postgres, sqlite3, ibmi, db2, snowflake and turso.`,

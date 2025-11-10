@@ -222,6 +222,7 @@ export interface QueryOptionsWithModel<M extends Model> extends QueryOptions {
 export class Sequelize<
   Dialect extends AbstractDialect = AbstractDialect,
 > extends SequelizeTypeScript<Dialect> {
+  static readonly supportedDialects: typeof SUPPORTED_DIALECTS;
   // -------------------- Utilities ------------------------------------------------------------------------
 
   /**

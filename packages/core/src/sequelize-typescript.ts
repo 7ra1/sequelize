@@ -214,6 +214,7 @@ export const SUPPORTED_DIALECTS = Object.freeze([
  * Always use {@link Sequelize} instead.
  */
 export abstract class SequelizeTypeScript<Dialect extends AbstractDialect> {
+  static readonly supportedDialects = SUPPORTED_DIALECTS;
   // created by the Sequelize subclass. Will eventually be migrated here.
   readonly dialect: Dialect;
   readonly options: NormalizedOptions<Dialect>;
