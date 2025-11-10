@@ -1,5 +1,5 @@
 {
-  "name": "@sequelize/monorepo",
+  "name": "@nxtmd/sequelize",
   "private": true,
   "scripts": {
     "prepare": "husky",
