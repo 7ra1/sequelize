@@ -4,12 +4,34 @@ import { logger } from '@sequelize/core/_non-semver-use-at-your-own-risk_/utils/
 import { checkFileExists } from '@sequelize/utils/node';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import * as TursoDatabase from '@tursodatabase/database';
 import type { TursoDialect } from './dialect.js';
 
 const debug = logger.debugContext('connection:turso');
 
-export type TursoModule = typeof TursoDatabase;
+export type TursoModule = typeof import('@tursodatabase/database');
+
+let cachedDefaultModule: TursoModule | undefined;
+let defaultModulePromise: Promise<TursoModule> | undefined;
+
+async function loadDefaultTursoModule(): Promise<TursoModule> {
+  if (cachedDefaultModule) {
+    return cachedDefaultModule;
+  }
+
+  if (!defaultModulePromise) {
+    defaultModulePromise = import('@tursodatabase/database')
+      .then(module => {
+        cachedDefaultModule = module;
+        return module;
+      })
+      .catch(error => {
+        defaultModulePromise = undefined;
+        throw error;
+      });
+  }
+
+  return defaultModulePromise;
+}
 
 const CLOSED_SYMBOL = Symbol('closed');
 
@@ -100,15 +122,52 @@ export class TursoConnectionManager extends AbstractConnectionManager<
   TursoDialect,
   TursoConnection
 > {
-  readonly #lib: TursoModule;
+  #lib: TursoModule | undefined;
+  #libPromise: Promise<TursoModule> | undefined;
 
   constructor(dialect: TursoDialect) {
     super(dialect);
 
-    this.#lib = this.dialect.options.tursoModule ?? TursoDatabase;
+    if (this.dialect.options.tursoModule) {
+      this.#lib = this.dialect.options.tursoModule;
+    }
+  }
+
+  async #getLib(): Promise<TursoModule> {
+    if (this.#lib) {
+      return this.#lib;
+    }
+
+    if (!this.#libPromise) {
+      this.#libPromise = loadDefaultTursoModule()
+        .then(module => {
+          this.#lib = module;
+          return module;
+        })
+        .catch(error => {
+          this.#libPromise = undefined;
+          throw error;
+        });
+    }
+
+    return this.#libPromise;
   }
 
   async connect(options: ConnectionOptions<TursoDialect>): Promise<TursoConnection> {
+    let lib: TursoModule;
+
+    try {
+      lib = await this.#getLib();
+    } catch (error) {
+      const err = error as NodeJS.ErrnoException;
+
+      if (err?.code === 'ERR_MODULE_NOT_FOUND' || err?.code === 'MODULE_NOT_FOUND') {
+        throw new Error('Unable to load @tursodatabase/database. Install the package to use the Turso dialect.');
+      }
+
+      throw error;
+    }
+
     const isRemote = Boolean(options.url);
     
     if (isRemote) {
@@ -117,7 +176,7 @@ export class TursoConnectionManager extends AbstractConnectionManager<
       }
 
       try {
-        const db = await this.#lib.connect(options.url!, {
+        const db = await lib.connect(options.url!, {
           authToken: options.authToken,
         } as any);
 
@@ -166,7 +225,7 @@ To fix this, disable read replication, or use a non-temporary database.`);
 
     try {
       debug(`Connecting to storage: ${storage}`);
-      const connection = await this.#lib.connect(storage);
+      const connection = await lib.connect(storage);
 
       debug(`turso connection acquired`);
 

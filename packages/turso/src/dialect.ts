@@ -1,5 +1,6 @@
 import type { Sequelize } from '@sequelize/core';
 import { AbstractDialect } from '@sequelize/core';
+import type { DialectName } from '@sequelize/core';
 import { createNamedParamBindCollector } from '@sequelize/core/_non-semver-use-at-your-own-risk_/utils/sql.js';
 import { getSynchronizedTypeKeys } from '@sequelize/utils';
 import * as DataTypes from './_internal/data-types-overrides.js';
@@ -112,7 +113,7 @@ export class TursoDialect extends AbstractDialect<TursoDialectOptions, TursoConn
       sequelize,
       minimumDatabaseVersion: '3.8.0',
       dataTypesDocumentationUrl: 'https://www.sqlite.org/datatype3.html',
-      name: 'turso',
+      name: 'turso' as unknown as DialectName,
     });
 
     this.connectionManager = new TursoConnectionManager(this);
